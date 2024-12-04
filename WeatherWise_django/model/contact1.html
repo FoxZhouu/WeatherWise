@@ -1,0 +1,197 @@
+<html><head><base href="/">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background: #f5f5f5;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .header h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .header p {
+    font-size: 1.1em;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+
+  .team-member {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-5px);
+  }
+
+  .member-avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+  }
+
+  .member-avatar svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .member-name {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .member-role {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .member-bio {
+    font-size: 0.9em;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  .social-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .social-links a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #007bff;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Our Amazing Team</h1>
+      <p>Meet the talented individuals who make our company extraordinary</p>
+    </div>
+    
+    <div class="team-grid">
+      <!-- Team Member 1 -->
+      <div class="team-member">
+        <div class="member-avatar">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="70" r="40" fill="#4A90E2"/>
+            <circle cx="100" cy="180" r="80" fill="#4A90E2"/>
+          </svg>
+        </div>
+        <h3 class="member-name">John Doe</h3>
+        <p class="member-role">CEO & Founder</p>
+        <p class="member-bio">Passionate about innovation and leading teams to success.</p>
+        <div class="social-links">
+          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="team-member">
+        <div class="member-avatar">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="70" r="40" fill="#E24A86"/>
+            <circle cx="100" cy="180" r="80" fill="#E24A86"/>
+          </svg>
+        </div>
+        <h3 class="member-name">Jane Smith</h3>
+        <p class="member-role">Creative Director</p>
+        <p class="member-bio">Creative visionary with an eye for exceptional design.</p>
+        <div class="social-links">
+          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="team-member">
+        <div class="member-avatar">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="70" r="40" fill="#4AE2B5"/>
+            <circle cx="100" cy="180" r="80" fill="#4AE2B5"/>
+          </svg>
+        </div>
+        <h3 class="member-name">Mike Johnson</h3>
+        <p class="member-role">Technical Lead</p>
+        <p class="member-bio">Problem solver with a passion for cutting-edge technology.</p>
+        <div class="social-links">
+          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- Team Member 4 -->
+      <div class="team-member">
+        <div class="member-avatar">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="70" r="40" fill="#E2CF4A"/>
+            <circle cx="100" cy="180" r="80" fill="#E2CF4A"/>
+          </svg>
+        </div>
+        <h3 class="member-name">Sarah Williams</h3>
+        <p class="member-role">Marketing Manager</p>
+        <p class="member-bio">Strategic thinker specializing in growth and brand development.</p>
+        <div class="social-links">
+          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add hover effects
+    document.querySelectorAll('.team-member').forEach(member => {
+      member.addEventListener('mouseenter', () => {
+        member.style.transform = 'translateY(-5px)';
+      });
+      
+      member.addEventListener('mouseleave', () => {
+        member.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+</body>
+</html>
