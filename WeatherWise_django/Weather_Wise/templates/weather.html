@@ -1,0 +1,522 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+
+    <title>Weather Wise</title>
+
+    <!-- Loading third party fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Loading main css file -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="site-content">
+        <div class="site-header">
+            <div class="container">
+                <a href="{% static 'weather.html' %}" class="branding">
+                    <img src="{% static 'images/logo.png' %}" alt="" class="logo">
+                    <div class="logo-type">
+                        <h1 class="site-title" style="font-size: 24px;">Weather Wise</h1>
+                        <small class="site-description" style="font-size: 12px;">Weather Visualization</small>                    </div>
+                </a>
+
+                <!-- Default snippet for navigation -->
+                <div class="main-navigation">
+                    <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+                    <ul class="menu">
+                        <li class="menu-item current-menu-item"><a href="{% url 'get_weather' %}">Home</a></li>
+                        <li class="menu-item"><a href="{% url 'news' %}">News</a></li>
+                        <li class="menu-item"><a href="{% url 'photos' %}">Photos</a></li>
+                        <li class="menu-item"><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 城市查询表单 -->
+        <div class="hero" data-bg-image="{% static 'images/banner.png' %}">
+            <div class="container">
+                <form method="GET" action="{% url 'get_weather' %}" class="find-location">
+                    <input type="text" placeholder="Find your location..." id="place" name="place" value="{{ place }}" required>
+                    <input type="submit" value="Find">
+                </form>
+            </div>
+        </div>
+        <div class="forecast-table">
+            <div class="container">
+                <div class="forecast-container">
+                    <div class="today forecast">
+                        <div class="forecast-header">
+                            <div class="day" id="today-day"></div>
+                            <div class="date" id="today-date"></div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="location">{{live_weather.city}}</div>
+                            <div class="degree">
+                                <div class="num">{{live_weather.temperature}}<sup>o</sup>C</div>
+                                <div class="forecast-icon">
+                                    {% if live_weather.weather == "晴" %}
+                                        <img src="{% static 'images/icons/icon-2.svg' %}" alt="晴天" width="90">
+                                    {% elif live_weather.weather == "多云" %}
+                                        <img src="{% static 'images/icons/icon-6.svg' %}" alt="多云" width="90">
+                                    {% elif live_weather.weather == "阴" %}
+                                        <img src="{% static 'images/icons/icon-5.svg' %}" alt="阴" width="90">
+                                    {% elif live_weather.weather == "小雨" %}
+                                        <img src="{% static 'images/icons/icon-9.svg' %}" alt="雨天" width="90">
+                                    {% elif live_weather.weather == "中雨" %}
+                                        <img src="{% static 'images/icons/icon-10.svg' %}" alt="中雨" width="90">
+                                    {% elif live_weather.weather == "雷阵雨" %}
+                                        <img src="{% static 'images/icons/icon-11.svg' %}" alt="雷阵雨" width="90">
+                                    {% elif "风" in live_weather.weather %}
+                                        <img src="{% static 'images/icons/icon-8.svg' %}" alt="风" width="90">
+                                    {% elif "雪" in live_weather.weather %}
+                                        <img src="{% static 'images/icons/icon-14.svg' %}" alt="雪" width="90">
+                                    {% else %}
+                                        <img src="{% static 'images/icons/icon-1.svg' %}" alt="默认天气" width="90">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <span><img src="{% static 'images/icon-umberella.png' %}" alt="">{{live_weather.humidity}}</span>
+                            <span><img src="{% static 'images/icon-wind.png' %}" alt="">{{live_weather.windpower}}</span>
+                            <span><img src="{% static 'images/icon-compass.png' %}" alt="">{{live_weather.winddirection}}</span>
+                        </div>
+                    </div>
+
+                                        <!-- 天气预报数据展示 -->
+                    <div class="forecast" id="forecast-1">
+                        <div class="forecast-header">
+                            <div class="day" id="day-1">{{ forecast_weather.0.week }}</div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="images/icons/icon-7.svg" alt="" width=48>
+                            </div>
+                            <div class="degree">{{ forecast_weather.0.daytemp }}<sup>o</sup>C</div>
+                            <small>{{ forecast_weather.0.nighttemp }}<sup>o</sup>C</small>
+                        </div>
+                    </div>
+
+                    <div class="forecast" id="forecast-2">
+                        <div class="forecast-header">
+                            <div class="day" id="day-2">{{ forecast_weather.1.week }}</div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="images/icons/icon-12.svg" alt="" width=48>
+                            </div>
+                            <div class="degree">{{ forecast_weather.1.daytemp }}<sup>o</sup>C</div>
+                            <small>{{ forecast_weather.1.nighttemp }}<sup>o</sup>C</small>
+                        </div>
+                    </div>
+
+                    <div class="forecast" id="forecast-3">
+                        <div class="forecast-header">
+                            <div class="day" id="day-3">{{ forecast_weather.2.week }}</div>
+                        </div> <!-- .forecast-header -->
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                <img src="images/icons/icon-13.svg" alt="" width=48>
+                            </div>
+                            <div class="degree">{{ forecast_weather.2.daytemp }}<sup>o</sup>C</div>
+                            <small>{{ forecast_weather.2.nighttemp }}<sup>o</sup>C</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 天气温度图表 -->
+        <div class="chart-container">
+            <h2>Synoptic temperature chart</h2>
+            <canvas id="weatherChart"></canvas>
+            <div class="row-charts">
+                <div class="chart-left">
+                    <h3 style="text-align: center;">Humidity distribution</h3>
+                     <canvas id="humidityChart" width="600" height="400" style="width: 100%; height: 300px; margin-right: 30px;"></canvas>
+                     <p id="humidityText" style="font-size: 24px; color: #fff; text-align: center;">Humidity: {{live_weather.humidity}}%</p>  <!-- 湿度显示 -->
+                </div>
+                <div class="chart-right">
+                    <h3 style="text-align: center;">Wind direction and force</h3>
+                    <canvas id="windDirectionChart" width="600" height="400" style="width: 100%; height: 300px;margin-left: 30px;"></canvas>
+                    <p id="windText" style="font-size: 24px; color: #fff; text-align: center;">Wind power: {{live_weather.windpower}}</p>  <!-- 风力显示 -->
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="fullwidth-block">
+                <div class="container">
+                    <h2 class="section-title">City Map</h2>
+                    <div class="row">
+                        {% if static_map_image_url %}
+                            <div class="map-container" style="padding-left: 65px;">
+                                <img src="{{ static_map_image_url }}" alt="城市地图">
+                            </div>
+                        {% else %}
+                            <p>无法获取地图信息</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="fullwidth-block" data-bg-color="#262936">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="news">
+                                <div class="date">06.10</div>
+                                <h3><a href="#">Sunny Weather Expected</a></h3>
+                                <p>Enjoy clear skies and warm temperatures this week. Perfect for outdoor activities and spending time with family and friends.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="news">
+                                <div class="date">06.10</div>
+                                <h3><a href="#">Heavy Rain Warning</a></h3>
+                                <p>Prepare for heavy rain and possible flooding. Stay indoors and avoid unnecessary travel during the storm.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="news">
+                                <div class="date">06.10</div>
+                                <h3><a href="#">Cooler Temperatures Ahead</a></h3>
+                                <p>As autumn approaches, expect a gradual drop in temperatures. Make sure to dress warmly and stay comfortable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fullwidth-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2 class="section-title">Application features</h2>
+                            <ul class="arrow-feature">
+                                <li>
+                                    <h3>Sunny Weather Expected</h3>
+                                    <p>Enjoy clear skies and warm temperatures this week. Perfect for outdoor activities and spending time with family and friends.</p>
+                                </li>
+                                <li>
+                                    <h3>Heavy Rain Warning</h3>
+                                    <p>Prepare for heavy rain and possible flooding. Stay indoors and avoid unnecessary travel during the storm.</p>
+                                </li>
+                                <li>
+                                    <h3>Cooler Temperatures Ahead</h3>
+                                    <p>As autumn approaches, expect a gradual drop in temperatures. Make sure to dress warmly and stay comfortable.</p>
+                                </li>                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h2 class="section-title">Weather analyssis</h2>
+                            <ul class="arrow-list">
+                                <li><a href="#">Sunny Weather Expected</a></li>
+                                <li><a href="#">Heavy Rain Warning</a></li>
+                                <li><a href="#">Cooler Temperatures Ahead</a></li>
+                                <li><a href="#">Thunderstorm Alert</a></li>
+                                <li><a href="#">Snowfall Expected</a></li>
+                                <li><a href="#">Heatwave Advisory</a></li>
+                                <li><a href="#">Foggy Conditions Forecasted</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h2 class="section-title">Awesome Photos</h2>
+                            <div class="photo-grid">
+
+                                <a href="#"><img src="{% static 'images/thumb-1.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-2.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-3.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-4.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-5.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-6.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-7.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-8.jpg' %}" alt="#"></a>
+                                <a href="#"><img src="{% static 'images/thumb-9.jpg' %}" alt="#"></a>                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main> <!-- .main-content -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter your email to subscribe...">
+                            <input type="submit" value="Subscribe">
+                        </form>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="social-links">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="colophon">Weather Wise<a target="_blank" href="https://github.com/FoxZhouu/WeatherWise" title="Subscribe to us"> Subscribe to us</a>. </p>
+            </div>
+        </footer> <!-- .site-footer -->
+
+    <hr>
+
+    </div>
+
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script>
+        // Get the current date and day of the week
+        const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const today = new Date();
+
+        // Get today's date and weekday
+        const todayDay = daysOfWeek[today.getDay()];
+        const todayDate = `${today.getDate()} ${monthsOfYear[today.getMonth()]}, ${today.getFullYear()}`;
+
+        // Set today's day and date
+        document.getElementById("today-day").innerText = todayDay;
+        document.getElementById("today-date").innerText = todayDate;
+
+        // Get the next 4 days
+        for (let i = 1; i <= 4; i++) {
+            let futureDay = new Date(today);
+            futureDay.setDate(today.getDate() + i);
+            document.getElementById(`day-${i}`).innerText = daysOfWeek[futureDay.getDay()];
+        }
+    </script>
+    <!--图表js-->
+    <script>
+        var ctx = document.getElementById('weatherChart').getContext('2d');
+        var weatherChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ days|safe }},  // 日期
+                datasets: [
+                    {
+                        label: 'Day temperature (°C)',
+                        data: {{ day_temps|safe }},  // 白天气温
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2, // 加粗边线
+                        tension: 0.3, // 曲线平滑度
+                        pointStyle: 'circle', // 数据点样式
+                        pointRadius: 5, // 数据点半径
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)', // 数据点颜色
+                        fill: true
+                    },
+                    {
+                        label: 'Night temperature (°C)',
+                        data: {{ night_temps|safe }},  // 夜间气温
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2, // 加粗边线
+                        tension: 0.3, // 曲线平滑度
+                        pointStyle: 'circle', // 数据点样式
+                        pointRadius: 5, // 数据点半径
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)', // 数据点颜色
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Forecast in 3 days',
+                        color: '#333',
+                        font: {
+                            size: 20,
+                            weight: 'bold',
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#555',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: 'rgba(0,0,0,0.7)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: '#ccc',
+                        borderWidth: 1,
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#555',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(200, 200, 200, 0.2)', // x轴网格颜色
+                            drawBorder: true
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#555',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(200, 200, 200, 0.2)', // y轴网格颜色
+                            drawBorder: true
+                        },
+                        title: {
+                            display: true,
+                            text: ' Degree(°C)',
+                            color: '#555',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxHumidity = document.getElementById('humidityChart').getContext('2d');
+        var humidityChart = new Chart(ctxHumidity, {
+            type: 'pie',
+            data: {
+                labels: ['humidity', ''],
+                datasets: [{
+                    data: [{{live_weather.humidity}}, 100 - {{live_weather.humidity}}],  // 20%湿度，80%剩余部分
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 1)', // 湿度部分
+                        'rgba(200, 200, 200, 0.5)'  // 剩余部分透明
+                    ],
+                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 255, 255, 0)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                cutoutPercentage: 70,  // 设置内环的透明部分
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false  // 不显示图例
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        function getWindDirectionAngle(direction) {
+            switch(direction) {
+                case "北": return "N";
+                case "东北": return "NE";
+                case "东": return "E";
+                case "东南": return "SE";
+                case "南": return "S";
+                case "西南": return "SW";
+                case "西": return "W";
+                case "西北": return "NW";
+                default: return 0;  // 默认为北风
+            }
+        }
+
+        // 获取风向角度
+        var windDirection = getWindDirectionAngle("{{live_weather.winddirection}}");
+        var radarData = [0, 0, 0, 0, 0, 0, 0, 0];
+        var windPower = "{{live_weather.windpower}}";
+        var numericWindPower = parseInt(windPower.replace(/[^\d.-]/g, ''), 10);  // 提取数字部分
+
+        if (windDirection === "N") radarData[0] = numericWindPower;  // 北
+        if (windDirection === "NE") radarData[1] = numericWindPower;  // 东北
+        if (windDirection === "E") radarData[2] = numericWindPower;  // 东
+        if (windDirection === "SE") radarData[3] = numericWindPower;  // 东南
+        if (windDirection === "S") radarData[4] = numericWindPower;  // 南
+        if (windDirection === "SW") radarData[5] = numericWindPower;  // 西南
+        if (windDirection === "W") radarData[6] = numericWindPower;  // 西
+        if (windDirection === "NW") radarData[7] = numericWindPower;  // 西北
+
+        // 配置风向雷达图
+        var ctx = document.getElementById('windDirectionChart').getContext('2d');
+        var windDirectionChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
+                datasets: [{
+                    label: '风向',
+                    data: radarData,
+                    backgroundColor: 'rgba(138, 43, 226, 0.2)',  // 浅紫色背景
+                    borderColor: 'rgba(138, 43, 226, 1)',  // 边框颜色
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 0
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 8,
+                        grid: {
+                            color: 'rgba(169, 169, 169, 1)',  // 设置浅灰色的网格线
+                            lineWidth: 2  // 设置网格线的宽度
+                        },
+                        ticks: {
+                            display: true,  // 显示网格的标签
+                            font: {
+                                size: 18,  // 设置标签字体大小，您可以根据需要调整这个值
+                                weight: 'bold',  // 设置字体加粗
+                                family: 'Arial, sans-serif'  // 设置字体类型
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

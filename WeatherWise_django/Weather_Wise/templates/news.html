@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>Compass Starter by Ariona, Rian</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+
+	</head>
+
+
+	<body>
+		
+		<div class="site-content">
+			<div class="site-header">
+				<div class="container">
+					<a href="weather.html" class="branding">
+						<img src="{% static 'images/logo.png' %}" alt="" class="logo">
+						<div class="logo-type">
+							<h1 class="site-title">Weather Wise</h1>
+							<small class="site-description">tagline goes here</small>
+						</div>
+					</a>
+
+					<!-- Default snippet for navigation -->
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item"><a href="{% url 'get_weather' %}">Home</a></li>
+							<li class="menu-item  current-menu-item"><a href="{% url 'news' %}">News</a></li>
+							<li class="menu-item"><a href="{% url 'photos' %}">Photos</a></li>
+							<li class="menu-item"><a href="{% url 'contact' %}">Contact</a></li>
+						</ul> <!-- .menu -->
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+
+				</div>
+			</div> <!-- .site-header -->
+
+			<main class="main-content">
+				<div class="container">
+					<div class="breadcrumb">
+						<a href="weather.html">Home</a>
+						<span>News</span>
+					</div>
+				</div>
+				
+
+				<div class="fullwidth-block">
+					<div class="container">
+						<div class="row">
+							<div class="content col-md-8">
+								<div class="post">
+									<h2 class="entry-title">Weather Update: Sunny Skies Ahead</h2>
+									<div class="featured-image">
+										<img src="{% static 'images/photo-3.jpg' %}" alt="Sunny Weather Forecast" class="featured-image">
+									</div>
+									<p>Enjoy a delightful stretch of sunny weather as meteorologists predict clear skies and warm temperatures for the coming week. Perfect for outdoor activities and a break from the recent rainy pattern.</p>
+									<a href="single.html" class="button">Read more</a>
+								</div>
+
+								<div class="post">
+									<h2 class="entry-title">Storm Warning: Prepare for Heavy Rain</h2>
+									<div class="featured-image">
+										<img src="{% static 'images/featured-image-2.jpg' %}" alt="Storm Warning" class="featured-image">
+									</div>
+									<p>Authorities have issued a storm warning for our region, with heavy rain and potential flooding expected over the weekend. Residents are advised to take necessary precautions and stay indoors if possible.</p>
+									<a href="single.html" class="button">Read more</a>
+								</div>
+				<div class="post">
+					<h2 class="entry-title">Seasonal Change: Cooler Temperatures Incoming</h2>
+					<div class="featured-image">
+						<img src="{% static 'images/featured-image-3.jpg' %}" alt="Cooler Weather Forecast" class="featured-image">
+					</div>
+					<p>As autumn approaches, expect a gradual drop in temperatures. Prepare your wardrobe for cooler weather and stock up on essentials to stay comfortable during the seasonal transition.</p>
+					<a href="single.html" class="button">Read more</a>
+				</div>
+			</div>
+			
+							<div class="sidebar col-md-3 col-md-offset-1">
+								<div class="widget">
+									<h3 class="widget-title">Latest Weather Alerts</h3>
+									<ul class="arrow-list">
+										<li><a href="#">Flash Flood Warning</a></li>
+										<li><a href="#">Severe Thunderstorm Watch</a></li>
+										<li><a href="#">Winter Weather Advisory</a></li>
+										<li><a href="#">Heatwave Alert</a></li>
+										<li><a href="#">Tornado Warning</a></li>
+									</ul>
+								</div>
+				 
+								<div class="widget">
+									<h3 class="widget-title">Weather Categories</h3>
+									<ul class="arrow-list">
+										<li><a href="#">Sunny Weather</a></li>
+										<li><a href="#">Rainy Days</a></li>
+										<li><a href="#">Snowy Seasons</a></li>
+										<li><a href="#">Stormy Weather</a></li>
+										<li><a href="#">Warm Temperatures</a></li>
+										<li><a href="#">Cooler Climates</a></li>
+										<li><a href="#">Extreme Weather</a></li>
+										<li><a href="#">Seasonal Changes</a></li>
+									</ul>
+								</div>
+				 
+								<div class="widget top-rated">
+									<h3 class="widget-title">Top Weather Stories</h3>
+									<ul>
+										<li><h3 class="entry-title"><a href="#">Unprecedented Heatwave Hits Region</a></h3><div class="rating"><strong>4.8</strong> (1234 rates)</div></li>
+										<li><h3 class="entry-title"><a href="#">Massive Flooding Causes Widespread Damage</a></h3><div class="rating"><strong>4.6</strong> (987 rates)</div></li>
+										<li><h3 class="entry-title"><a href="#">Winter Storm Brings Heavy Snowfall</a></h3><div class="rating"><strong>4.9</strong> (1456 rates)</div></li>
+										<li><h3 class="entry-title"><a href="#">Tornado Outbreak Leaves Path of Destruction</a></h3><div class="rating"><strong>4.7</strong> (1123 rates)</div></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main> <!-- .main-content -->
+
+		</div>
+
+		
+	</body>
+
+</html>

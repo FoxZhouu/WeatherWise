@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+
+		<title>Compass Starter by Ariona, Rian</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+
+		<!--[if lt IE 9]>
+		<script src="{% static 'js/ie-support/html5.js' %}"></script>
+		<script src="{% static 'js/ie-support/respond.js' %}"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="site-content">
+			<div class="site-header">
+				<div class="container">
+					<a href="index.html" class="branding">
+						<img src="{% static 'images/logo.png' %}" alt="" class="logo">
+						<div class="logo-type">
+							<h1 class="site-title">Weather Wise</h1>
+							<small class="site-description">tagline goes here</small>
+						</div>
+					</a>
+
+					<!-- Default snippet for navigation -->
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+                            <li class="menu-item"><a href="{% url 'get_weather' %}">Home</a></li>
+                            <li class="menu-item"><a href="{% url 'news' %}">News</a></li>
+                            <li class="menu-item current-menu-item"><a href="{% url 'photos' %}">Photos</a></li>
+                            <li class="menu-item"><a href="{% url 'contact' %}">Contact</a></li>
+						</ul> <!-- .menu -->
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+
+				</div>
+			</div> <!-- .site-header -->
+
+			<main class="main-content">
+				<div class="container">
+					<div class="breadcrumb">
+						<a href="index.html">Home</a>
+						<span>Photos</span>
+					</div>
+				</div>
+
+				<div class="fullwidth-block">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-1.jpg' %}" alt="Photo 1"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Tornado Warning</a></h3>
+										<p>Severe tornado warning in effect. Seek shelter immediately and stay tuned for updates.</p>
+										<div class="star-rating" title="Rated 1 out of 5"><span style="width:20%"><strong class="rating">1</strong> out of 5</span></div>
+									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-2.jpg' %}" alt="Photo 2"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Foggy Meadow</a></h3>
+										<p>Dense fog covering the meadow with a high of 15°C. Drive carefully and use fog lights.</p>
+										<div class="star-rating" title="Rated 3 out of 5"><span style="width:60%"><strong class="rating">3</strong> out of 5</span></div>
+									</div>
+								</div>
+
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-3.jpg' %}" alt="Photo 3"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Clear Sky Over Calm Lake</a></h3>
+										<p>Beautiful clear skies with a high of 22°C. Perfect day for a peaceful outing by the lake.</p>
+										<div class="star-rating" title="Rated 5 out of 5"><span style="width:100%"><strong class="rating">5</strong> out of 5</span></div>									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-4.jpg' %}" alt="Photo 4"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Autumn Leaves</a></h3>
+										<p>Beautiful autumn scenery with fallen leaves covering the ground. Mild temperatures around 15°C.</p>
+										<div class="star-rating" title="Rated 4 out of 5"><span style="width:80%"><strong class="rating">4</strong> out of 5</span></div>
+									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-5.jpg' %}" alt="Photo 5"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Drought Conditions</a></h3>
+										<p>Severe drought with no rainfall expected. High temperatures reaching 35°C. Water conservation is crucial.</p>										<div class="star-rating" title="Rated 1 out of 5"><span style="width:60%"><strong class="rating">1</strong> out of 5</span></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-3.jpg' %}" alt="Photo 6"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Sunny Day</a></h3>
+										<p>Clear skies with a high of 25°C. Perfect day for outdoor activities.</p>										<div class="star-rating" title="Rated 1 out of 5"><span style="width:60%"><strong class="rating">1</strong> out of 5</span></div>
+									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-7.jpg' %}" alt="Photo 7"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Clear Sky Over Calm Lake</a></h3>
+										<p>Beautiful clear skies with a high of 22°C. Perfect day for a peaceful outing by the lake.</p>
+										<div class="star-rating" title="Rated 5 out of 5"><span style="width:100%"><strong class="rating">5</strong> out of 5</span></div>									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-8.jpg' %}" alt="Photo 8"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Sunrise Over the Horizon</a></h3>
+<p>Witness the stunning sunrise with clear skies and a high of 20°C. A perfect start to your day.</p>
+<div class="star-rating" title="Rated 5 out of 5"><span style="width:100%"><strong class="rating">5</strong> out of 5</span></div>									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-9.jpg' %}" alt="Photo 9"></a>
+									<div class="photo-details">
+										<h3 class="photo-title"><a href="#">Autumn Lake</a></h3>
+										<p>Beautiful autumn scenery with fallen leaves covering the ground. Mild temperatures around 15°C.</p>
+										<div class="star-rating" title="Rated 4 out of 5"><span style="width:80%"><strong class="rating">4</strong> out of 5</span></div>									</div>
+								</div>
+								<div class="photo">
+									<a href="#"><img src="{% static 'images/photo-10.jpg' %}" alt="Photo 10"></a>
+									<div class="photo-details">
+<h3 class="photo-title"><a href="#">Summer Palms</a></h3>
+<p>Sunny summer day with palm trees swaying in the breeze. High temperatures around 30°C. Perfect for a beach day.</p>
+<div class="star-rating" title="Rated 5 out of 5"><span style="width:100%"><strong class="rating">5</strong> out of 5</span></div>								</div>
+							</div></div>
+						</div> <!-- .row -->
+					</div> <!-- .container -->
+				</div> <!-- .fullwidth-block -->
+
+			</main> <!-- .main-content -->
+		</div> <!-- .site-content -->
+	</body>
+</html>
